@@ -10,10 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var soundbite : View_SoundBite!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // *** THIS WOULD BE HOW I WOULD DO PROGRAMMATIC CREATION OF CUSTVIEW CHILDREN.
+        // BUT IT IS NOT NECESSARY TO DO THIS IF YOU INSTANTIATE VIA STORYBOARD.
         
         // we'd probably want to set up constraints here in a real app
         //soundbite = View_SoundBite(frame: CGRectMake(0, 20, view.bounds.width, 200))

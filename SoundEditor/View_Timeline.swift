@@ -10,7 +10,8 @@ import UIKit
 
 class View_Timeline: UIView {
     
-    @IBOutlet var contentView: View_Timeline!
+    
+    @IBOutlet var contentView: UIView!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -25,14 +26,15 @@ class View_Timeline: UIView {
     
     
     func initSubviews() {
-        let nib = UINib(nibName: "View_Timeline", bundle: nil)
+        let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
-        /*
+        
         contentView.frame = bounds
         addSubview(contentView)
-        */
         
-        // custom initialization logic
+        let soundbite = View_SoundBite(frame: CGRectMake(0, 20, contentView.bounds.width, 200))
+
+        addSubview(soundbite)
     }
     
 
@@ -45,8 +47,10 @@ class View_Timeline: UIView {
         
         let context = UIGraphicsGetCurrentContext()
         
+        CGContextSetLineWidth(context, 3.0)
+        
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let components : [CGFloat] = [1.0, 1.0, 1.0, 1.0]
+        let components : [CGFloat] = [0.0, 0.0, 1.0, 1.0]
         let color = CGColorCreate(colorSpace, components)
         
         CGContextSetStrokeColorWithColor(context, color)
