@@ -16,6 +16,9 @@
 		6800FDCB1BB6227F0068D888 /* SoundEditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800FDCA1BB6227F0068D888 /* SoundEditorUITests.swift */; };
 		6800FDD91BB625660068D888 /* View_SoundBite.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6800FDD81BB625660068D888 /* View_SoundBite.xib */; settings = {ASSET_TAGS = (); }; };
 		6800FDDB1BB626370068D888 /* View_SoundBite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800FDDA1BB626370068D888 /* View_SoundBite.swift */; settings = {ASSET_TAGS = (); }; };
+		687D3EF61BB79EBA0037B1D0 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687D3EF51BB79EBA0037B1D0 /* View.xib */; settings = {ASSET_TAGS = (); }; };
+		687D3EF81BB79EDA0037B1D0 /* Timeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687D3EF71BB79EDA0037B1D0 /* Timeline.xib */; settings = {ASSET_TAGS = (); }; };
+		687D3EFA1BB79FB80037B1D0 /* View_Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D3EF91BB79FB80037B1D0 /* View_Timeline.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		6800FDCC1BB6227F0068D888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6800FDD81BB625660068D888 /* View_SoundBite.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View_SoundBite.xib; sourceTree = "<group>"; };
 		6800FDDA1BB626370068D888 /* View_SoundBite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View_SoundBite.swift; sourceTree = "<group>"; };
+		687D3EF51BB79EBA0037B1D0 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		687D3EF71BB79EDA0037B1D0 /* Timeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Timeline.xib; sourceTree = "<group>"; };
+		687D3EF91BB79FB80037B1D0 /* View_Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View_Timeline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,9 @@
 				6800FDB31BB6227F0068D888 /* LaunchScreen.storyboard */,
 				6800FDB61BB6227F0068D888 /* Info.plist */,
 				6800FDD81BB625660068D888 /* View_SoundBite.xib */,
+				687D3EF51BB79EBA0037B1D0 /* View.xib */,
+				687D3EF71BB79EDA0037B1D0 /* Timeline.xib */,
+				687D3EF91BB79FB80037B1D0 /* View_Timeline.swift */,
 				6800FDDA1BB626370068D888 /* View_SoundBite.swift */,
 			);
 			path = SoundEditor;
@@ -235,8 +244,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6800FDB51BB6227F0068D888 /* LaunchScreen.storyboard in Resources */,
+				687D3EF61BB79EBA0037B1D0 /* View.xib in Resources */,
 				6800FDB21BB6227F0068D888 /* Assets.xcassets in Resources */,
 				6800FDB01BB6227F0068D888 /* Main.storyboard in Resources */,
+				687D3EF81BB79EDA0037B1D0 /* Timeline.xib in Resources */,
 				6800FDD91BB625660068D888 /* View_SoundBite.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +276,7 @@
 				6800FDAD1BB6227F0068D888 /* ViewController.swift in Sources */,
 				6800FDAB1BB6227F0068D888 /* AppDelegate.swift in Sources */,
 				6800FDDB1BB626370068D888 /* View_SoundBite.swift in Sources */,
+				687D3EFA1BB79FB80037B1D0 /* View_Timeline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +501,7 @@
 				6800FDD11BB6227F0068D888 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6800FDD21BB6227F0068D888 /* Build configuration list for PBXNativeTarget "SoundEditorTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +510,7 @@
 				6800FDD41BB6227F0068D888 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6800FDD51BB6227F0068D888 /* Build configuration list for PBXNativeTarget "SoundEditorUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +519,7 @@
 				6800FDD71BB6227F0068D888 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
