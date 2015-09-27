@@ -10,8 +10,24 @@ import UIKit
 
 class View_Timeline: UIView {
     
-    
     @IBOutlet var contentView: UIView!
+    
+    
+    // Constant
+    
+    let channelHeight = 18 //pixels
+    
+    let channelWidthInSec = 8 //seconds
+
+    
+    
+    
+    // Derived in 
+    var secWidthInPx = 0
+    
+    var channelCount = 1
+    
+    
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -29,9 +45,16 @@ class View_Timeline: UIView {
         let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
         
+        // Derive geometry
+        channelCount = Int(Int(bounds.height) / channelHeight)
+        
         contentView.frame = bounds
         addSubview(contentView)
-        
+    }
+    
+    
+    
+    func createSoundbite(numSeconds:Int) {
         let soundbite = View_SoundBite(frame: CGRectMake(0, 20, contentView.bounds.width, 200))
 
         addSubview(soundbite)
@@ -43,20 +66,29 @@ class View_Timeline: UIView {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        // Drawing code
         
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextSetLineWidth(context, 3.0)
+        CGContextSetLineWidth(context, 1.0)
         
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let components : [CGFloat] = [0.0, 0.0, 1.0, 1.0]
-        let color = CGColorCreate(colorSpace, components)
+
+        let componentsWhite : [CGFloat] = [1.0, 1.0, 1.0, 1.0]
+        let componentsDarkGrey : [CGFloat] = [0.2, 0.2, 0.2, 1.0]
+
+        var color = CGColorCreate(colorSpace, componentsDarkGrey)
+        CGContextSetFillColorWithColor(context, color)
+        CGContextFillRect(context, rect)
         
+        color = CGColorCreate(colorSpace, componentsWhite)
         CGContextSetStrokeColorWithColor(context, color)
-        CGContextMoveToPoint(context, 0, 0)
-        CGContextAddLineToPoint(context, 300, 300)
-        CGContextStrokePath(context)
+        
+        for i in 0...channelCount {
+            let yCoord = CGFloat(i * channelHeight)
+            CGContextMoveToPoint(context, 0, yCoord)
+            CGContextAddLineToPoint(context, 30000, yCoord)
+            CGContextStrokePath(context)
+        }
         
     }
     
