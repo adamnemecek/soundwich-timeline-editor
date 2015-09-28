@@ -46,7 +46,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         channelCount = Int(Int(bounds.height) / channelHeight)
         secWidthInPx = bounds.width / CGFloat(timelineWidthInSec)
 
-        
         // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
@@ -57,15 +56,18 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     
     
-    func handleSoundbiteDrag(sender:UIPanGestureRecognizer) {
-        if let v = sender.view {
+    
+    func handleSoundbiteDrag(sender: UIPanGestureRecognizer) {
+        if let sbite = sender.view as? View_SoundBite {
             let translation = sender.translationInView(self)
-            let currentOrig = v.frame.origin
-            v.frame.origin = CGPointMake(currentOrig.x+translation.x, currentOrig.y+translation.y)
-            sender.setTranslation(CGPointZero, inView: self)
+            let currentOrig = sbite.curFrameOrigin!
+            sbite.frame.origin = CGPointMake(currentOrig.x+translation.x, currentOrig.y)
+            if (sender.state == .Ended) {
+                sbite.curFrameOrigin = sbite.frame.origin
+                sender.setTranslation(CGPointZero, inView: self)
+            }
         }
     }
-    
     
     
     
@@ -75,6 +77,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
+        soundbite.curFrameOrigin = soundbite.frame.origin
         
         // Gesture recognizer
         let gestureRecog = UIPanGestureRecognizer()

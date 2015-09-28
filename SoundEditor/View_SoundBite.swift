@@ -12,10 +12,12 @@ class View_SoundBite: UIView {
     
 
     @IBOutlet var contentView: UIView!
-    
 
     @IBOutlet weak var label_Name: UILabel!
-    
+
+    // What is the actual current persistent location of this object, i.e. if the user was dragging it somewhere else
+    // but then aborted the drag operation, where would this object naturally return to?
+    var curFrameOrigin : CGPoint?
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -27,8 +29,13 @@ class View_SoundBite: UIView {
         initSubviews()
     }
 
-    
-    
+
+    /*  THIS DID NOT WORK:
+   // Pass this event UP to the superview so it can be handled by the timeline
+   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+      super.touchesEnded(touches, withEvent: event)
+   }
+    */
     
     
     func initSubviews() {
@@ -41,13 +48,4 @@ class View_SoundBite: UIView {
     }
     
     
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }
