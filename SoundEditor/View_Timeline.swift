@@ -40,14 +40,12 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     
     
-    let gestureRecog = UIPanGestureRecognizer()
 
     func initSubviews() {
         // Calculate derived values based on the incoming geometry
         channelCount = Int(Int(bounds.height) / channelHeight)
         secWidthInPx = bounds.width / CGFloat(timelineWidthInSec)
 
-        gestureRecog.addTarget(self, action: "handleSoundbiteDrag:")
         
         // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
@@ -61,7 +59,10 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     func handleSoundbiteDrag(sender:UIPanGestureRecognizer) {
         if let v = sender.view {
-            v.center = CGPointMake(50, 50)
+            let translation = sender.translationInView(self)
+            let currentOrig = v.frame.origin
+            v.frame.origin = CGPointMake(currentOrig.x+translation.x, currentOrig.y+translation.y)
+            sender.setTranslation(CGPointZero, inView: self)
         }
     }
     
@@ -76,6 +77,8 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         addSubview(soundbite)
         
         // Gesture recognizer
+        let gestureRecog = UIPanGestureRecognizer()
+        gestureRecog.addTarget(self, action: "handleSoundbiteDrag:")
         soundbite.addGestureRecognizer(gestureRecog)
         soundbite.userInteractionEnabled = true
     }
