@@ -23,6 +23,8 @@ class View_Timeline: UIView {
     var secWidthInPx : CGFloat = 0
     var channelCount = 1
     
+    // Database of soundbites in this timeline
+    var dictSoundbites = [String: View_SoundBite]()
     
     
     required init(coder aDecoder: NSCoder) {
@@ -52,11 +54,21 @@ class View_Timeline: UIView {
     
     
     
-    func createSoundbite(channelIndex:Int, startTime:Float, durationInSec:Float) {
+    
+    
+    func createSoundbite(name:String, channelIndex:Int, startTime:Float, durationInSec:Float) {
         let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
+        dictSoundbites[name] = soundbite
         addSubview(soundbite)
     }
-    
+
+    func deleteSoundbite(name:String) {
+        if let soundbite = dictSoundbites[name] {
+            soundbite.removeFromSuperview()
+            dictSoundbites.removeValueForKey(name)
+        }
+    }
+
 
 
     
