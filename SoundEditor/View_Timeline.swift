@@ -13,18 +13,14 @@ class View_Timeline: UIView {
     @IBOutlet var contentView: UIView!
     
     
-    // Constant
-    
-    let channelHeight = 18 //pixels
-    
-    let channelWidthInSec = 8 //seconds
+    // Constants
+    let channelHeight = 24 //pixels
+    let channelPadding = 2
+    let timelineWidthInSec = 8 //seconds
 
     
-    
-    
-    // Derived in 
-    var secWidthInPx = 0
-    
+    // Derived by the geometry
+    var secWidthInPx : CGFloat = 0
     var channelCount = 1
     
     
@@ -42,11 +38,13 @@ class View_Timeline: UIView {
     
     
     func initSubviews() {
+        // Calculate derived values based on the incoming geometry
+        channelCount = Int(Int(bounds.height) / channelHeight)
+        secWidthInPx = bounds.width / CGFloat(timelineWidthInSec)
+
+        // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
-        
-        // Derive geometry
-        channelCount = Int(Int(bounds.height) / channelHeight)
         
         contentView.frame = bounds
         addSubview(contentView)
@@ -54,9 +52,8 @@ class View_Timeline: UIView {
     
     
     
-    func createSoundbite(numSeconds:Int) {
-        let soundbite = View_SoundBite(frame: CGRectMake(0, 20, contentView.bounds.width, 200))
-
+    func createSoundbite(channelIndex:Int, startTime:Float, durationInSec:Float) {
+        let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
         addSubview(soundbite)
     }
     

@@ -11,10 +11,12 @@ import UIKit
 class ViewController: UIViewController {
     
     
+    @IBOutlet weak var timeline: View_Timeline!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        timeline.createSoundbite(0, startTime:0, durationInSec:5)
         
         // *** THIS WOULD BE HOW I WOULD DO PROGRAMMATIC CREATION OF CUSTVIEW CHILDREN.
         // BUT IT IS NOT NECESSARY TO DO THIS IF YOU INSTANTIATE VIA STORYBOARD.
