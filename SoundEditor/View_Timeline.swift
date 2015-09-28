@@ -8,12 +8,12 @@
 
 import UIKit
 
-class View_Timeline: UIView {
+class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet var contentView: UIView!
     
     
-    // Constants
+        // Constants
     let channelHeight = 24 //pixels
     let channelPadding = 2
     let timelineWidthInSec = 8 //seconds
@@ -39,11 +39,16 @@ class View_Timeline: UIView {
     
     
     
+    
+    let gestureRecog = UIPanGestureRecognizer()
+
     func initSubviews() {
         // Calculate derived values based on the incoming geometry
         channelCount = Int(Int(bounds.height) / channelHeight)
         secWidthInPx = bounds.width / CGFloat(timelineWidthInSec)
 
+        gestureRecog.addTarget(self, action: "handleSoundbiteDrag:")
+        
         // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
@@ -54,12 +59,25 @@ class View_Timeline: UIView {
     
     
     
+    func handleSoundbiteDrag(sender:UIPanGestureRecognizer) {
+        if let v = sender.view {
+            v.center = CGPointMake(50, 50)
+        }
+    }
     
+    
+    
+    
+    // Public API for populating this timeline with visual representations of "sound bites".
     
     func createSoundbite(name:String, channelIndex:Int, startTime:Float, durationInSec:Float) {
         let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
+        
+        // Gesture recognizer
+        soundbite.addGestureRecognizer(gestureRecog)
+        soundbite.userInteractionEnabled = true
     }
 
     func deleteSoundbite(name:String) {
@@ -71,6 +89,10 @@ class View_Timeline: UIView {
 
 
 
+    
+    
+    
+    
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
