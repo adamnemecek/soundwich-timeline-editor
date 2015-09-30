@@ -63,7 +63,14 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
             throw TimelineError.SoundbiteNameInUse
         }
         
-        let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
+        let frameRect = CGRectMake(
+            CGFloat(startTime) * secWidthInPx,
+            CGFloat(((channelIndex*channelHeight)+channelPadding)),
+            (CGFloat(durationInSec)*secWidthInPx),
+            CGFloat(channelHeight-2*channelPadding))
+        
+        
+        let soundbite = View_SoundBite(frame: frameRect)
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
         soundbite.curFrameOrigin = soundbite.frame.origin

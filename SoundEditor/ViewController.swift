@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        try! timeline.createSoundbite("Clip 1", channelIndex:0, startTime:0, durationInSec:5)
-        try! timeline.createSoundbite("Clip 2", channelIndex:1, startTime:1, durationInSec:3)
+        try! timeline.createSoundbite("Intro", channelIndex:0, startTime:0, durationInSec:3)
+        try! timeline.createSoundbite("Main", channelIndex:0, startTime:3, durationInSec:2.5)
         
         
         // *** THIS WOULD BE HOW I WOULD DO PROGRAMMATIC CREATION OF CUSTVIEW CHILDREN.
