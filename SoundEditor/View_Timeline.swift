@@ -8,12 +8,24 @@
 
 import UIKit
 
+
+
+protocol Protocol_MessagesFromTimeline {
+    func soundbiteDidMove(name:String, newChannel:Int, newStartTime:Float)
+}
+
+enum TimelineError: ErrorType {
+    case SoundbiteNameInUse
+}
+
+
+
 class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet var contentView: UIView!
     
     
-        // Constants
+    // Constants
     let channelHeight = 24 //pixels
     let channelPadding = 2
     let timelineWidthInSec = 8 //seconds
@@ -39,6 +51,48 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     
     
+
+    
+    
+    // Public API for populating this timeline with visual representations of "soundbite" objects in
+    // the data model.
+    
+    func createSoundbite(name:String, channelIndex:Int, startTime:Float, durationInSec:Float) throws {
+        
+        if let _ = dictSoundbites[name] {
+            throw TimelineError.SoundbiteNameInUse
+        }
+        
+        let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
+        dictSoundbites[name] = soundbite
+        addSubview(soundbite)
+        soundbite.curFrameOrigin = soundbite.frame.origin
+        soundbite.label_Name.text = name
+        
+        // Gesture recognizer
+        let gestureRecog = UIPanGestureRecognizer()
+        gestureRecog.addTarget(self, action: "handleSoundbiteDrag:")
+        soundbite.addGestureRecognizer(gestureRecog)
+        soundbite.userInteractionEnabled = true
+    }
+    
+    func deleteSoundbite(name:String) {
+        if let soundbite = dictSoundbites[name] {
+            soundbite.removeFromSuperview()
+            dictSoundbites.removeValueForKey(name)
+        }
+    }
+    
+    
+
+    
+    
+    
+    
+    
+    
+    // @ TODO
+    // Re-derive geometry when the geometry of this (the timeline) changes, e.g. rotate phone.
     
 
     func initSubviews() {
@@ -69,39 +123,14 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    
-    
-    // Public API for populating this timeline with visual representations of "sound bites".
-    
-    func createSoundbite(name:String, channelIndex:Int, startTime:Float, durationInSec:Float) {
-        let soundbite = View_SoundBite(frame: CGRectMake(0, CGFloat(((channelIndex*channelHeight)+channelPadding)), (CGFloat(durationInSec)*secWidthInPx), CGFloat(channelHeight-2*channelPadding)))
-        dictSoundbites[name] = soundbite
-        addSubview(soundbite)
-        soundbite.curFrameOrigin = soundbite.frame.origin
-        
-        // Gesture recognizer
-        let gestureRecog = UIPanGestureRecognizer()
-        gestureRecog.addTarget(self, action: "handleSoundbiteDrag:")
-        soundbite.addGestureRecognizer(gestureRecog)
-        soundbite.userInteractionEnabled = true
-    }
-
-    func deleteSoundbite(name:String) {
-        if let soundbite = dictSoundbites[name] {
-            soundbite.removeFromSuperview()
-            dictSoundbites.removeValueForKey(name)
-        }
-    }
-
 
 
     
     
     
     
+    // Internal methods
     
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         
         let context = UIGraphicsGetCurrentContext()

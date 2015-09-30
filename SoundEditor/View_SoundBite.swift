@@ -28,23 +28,12 @@ class View_SoundBite: UIView {
         super.init(frame: frame)
         initSubviews()
     }
-
-
-    /*  THIS DID NOT WORK:
-   // Pass this event UP to the superview so it can be handled by the timeline
-   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-      super.touchesEnded(touches, withEvent: event)
-   }
-    */
-    
     
     func initSubviews() {
         let nib = UINib(nibName: "View_SoundBite", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)
-            
-            // custom initialization logic
     }
     
     
