@@ -9,7 +9,6 @@
 import UIKit
 
 class View_SoundBite: UIView {
-    
 
     @IBOutlet var contentView: UIView!
 
@@ -18,11 +17,8 @@ class View_SoundBite: UIView {
 
     // What is the actual current persistent location of this object, i.e. if the user was dragging it somewhere else
     // but then aborted the drag operation, where would this object naturally return to?
-    var curFrameOrigin : CGPoint?
     
-    var indexOfChannel : Int?
-    
-    
+    var timespec : Timespec?
     
     
     required init(coder aDecoder: NSCoder) {

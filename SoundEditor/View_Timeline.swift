@@ -9,9 +9,8 @@
 import UIKit
 
 
-
 protocol Protocol_MessagesFromTimeline {
-    func soundbiteDidMove(name:String, newChannel:Int, newStartTime:Float)
+    func soundbiteDidMove(name:String, newStartTime:Float)
 }
 
 enum TimelineError: ErrorType {
@@ -26,14 +25,14 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     
     // Constants
-    let channelHeight = 24 //pixels
-    let channelPadding = 2
+    let channelCount = 8
+    let channelPadding : Float = 2
     let timelineWidthInSec = 8 //seconds
 
     
     // Derived by the geometry
-    var secWidthInPx : CGFloat = 0
-    var channelCount = 1
+    var secWidthInPx : Float = 0
+    var channelHeight : Float = 0 //pixels
     
     // Database of soundbites in this timeline
     var dictSoundbites = [String: View_SoundBite]()
@@ -57,23 +56,22 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     // Public API for populating this timeline with visual representations of "soundbite" objects in
     // the data model.
     
-    func createSoundbite(name:String, channelIndex:Int, startTime:Float, durationInSec:Float) throws {
+    func createSoundbite(name:String, channelIndex:Int, spec:Timespec) throws {
         
         if let _ = dictSoundbites[name] {
             throw TimelineError.SoundbiteNameInUse
         }
         
         let frameRect = CGRectMake(
-            CGFloat(startTime) * secWidthInPx,
-            CGFloat(((channelIndex*channelHeight)+channelPadding)),
-            (CGFloat(durationInSec)*secWidthInPx),
+            CGFloat(spec.start * secWidthInPx),
+            CGFloat(((Float(channelIndex)*channelHeight)+channelPadding)),
+            CGFloat(spec.duration()*secWidthInPx),
             CGFloat(channelHeight-2*channelPadding))
         
         
         let soundbite = View_SoundBite(frame: frameRect)
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
-        soundbite.curFrameOrigin = soundbite.frame.origin
         soundbite.label_Name.text = name
         
         // Gesture recognizer
@@ -104,8 +102,8 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
 
     func initSubviews() {
         // Calculate derived values based on the incoming geometry
-        channelCount = Int(Int(bounds.height) / channelHeight)
-        secWidthInPx = bounds.width / CGFloat(timelineWidthInSec)
+        secWidthInPx = Float(bounds.width / CGFloat(timelineWidthInSec))
+        channelHeight = Float(Int(bounds.height) / channelCount)
 
         // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
@@ -117,14 +115,19 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     
     
+    // This is non-nil only when a drag is in process:
+    var curFrameOrigin : CGPoint?
     
     func handleSoundbiteDrag(sender: UIPanGestureRecognizer) {
         if let sbite = sender.view as? View_SoundBite {
+            if curFrameOrigin == nil {
+                curFrameOrigin = sbite.frame.origin
+            }
             let translation = sender.translationInView(self)
-            let currentOrig = sbite.curFrameOrigin!
+            let currentOrig = curFrameOrigin!
             sbite.frame.origin = CGPointMake(currentOrig.x+translation.x, currentOrig.y)
             if (sender.state == .Ended) {
-                sbite.curFrameOrigin = sbite.frame.origin
+                curFrameOrigin = nil
                 sender.setTranslation(CGPointZero, inView: self)
             }
         }
@@ -157,9 +160,9 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         CGContextSetStrokeColorWithColor(context, color)
         
         for i in 0...channelCount {
-            let yCoord = CGFloat(i * channelHeight)
-            CGContextMoveToPoint(context, 0, yCoord)
-            CGContextAddLineToPoint(context, 30000, yCoord)
+            let yCoord = (Float(i) * channelHeight)
+            CGContextMoveToPoint(context, 0, CGFloat(yCoord))
+            CGContextAddLineToPoint(context, 30000, CGFloat(yCoord))
             CGContextStrokePath(context)
         }
         

@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Rr-DX-NdU" customClass="View_Timeline" customModule="SoundEditor" customModuleProvider="target">
-                                <rect key="frame" x="10" y="30" width="300" height="128"/>
+                                <rect key="frame" x="10" y="30" width="300" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="poI-rf-byD"/>
+                                    <constraint firstAttribute="height" constant="300" id="poI-rf-byD"/>
                                 </constraints>
                             </view>
                         </subviews>
