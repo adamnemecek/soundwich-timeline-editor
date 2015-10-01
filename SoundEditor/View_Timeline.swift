@@ -117,15 +117,23 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     // This is non-nil only when a drag is in process:
     var curFrameOrigin : CGPoint?
+    var maxAllowedNegativeTranslation : CGFloat?
+    var maxAllowedPositiveTranslation : CGFloat?
     
     func handleSoundbiteDrag(sender: UIPanGestureRecognizer) {
         if let sbite = sender.view as? View_SoundBite {
             if curFrameOrigin == nil {
-                curFrameOrigin = sbite.frame.origin
+                // This is the start of a drag operation
+                self.curFrameOrigin = sbite.frame.origin
+                // Determine the limits to the user's ability to drag this left/right
+                maxAllowedNegativeTranslation = -1.0 * curFrameOrigin!.x
+                maxAllowedPositiveTranslation = self.frame.width - (curFrameOrigin!.x + sbite.frame.width)
             }
             let translation = sender.translationInView(self)
             let currentOrig = curFrameOrigin!
-            sbite.frame.origin = CGPointMake(currentOrig.x+translation.x, currentOrig.y)
+            sbite.frame.origin = CGPointMake(
+                currentOrig.x + min(max(translation.x, maxAllowedNegativeTranslation!), maxAllowedPositiveTranslation!),
+                currentOrig.y)
             if (sender.state == .Ended) {
                 curFrameOrigin = nil
                 sender.setTranslation(CGPointZero, inView: self)
@@ -133,7 +141,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-
+    
 
     
     
