@@ -11,6 +11,8 @@ import UIKit
 class View_SoundBite: UIView {
 
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var handleClippingLeft: UIView!
+    @IBOutlet weak var handleClippingRight: UIView!
     
     var name = "Clip"
 
@@ -38,8 +40,8 @@ class View_SoundBite: UIView {
         nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)
-        contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor(red: 0.8, green:0, blue:0, alpha: 1.0).CGColor
+        //contentView.layer.borderWidth = 2
+        //contentView.layer.borderColor = UIColor(red: 0.8, green:0, blue:0, alpha: 1.0).CGColor
     }
     
     // I wanted to name this "setName" but that is reserved apparently.

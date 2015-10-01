@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="View_SoundBite" customModule="SoundEditor" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Se9-Gc-gks"/>
+                <outlet property="handleClippingLeft" destination="y12-DF-Ff2" id="Bx0-Sr-XiY"/>
+                <outlet property="handleClippingRight" destination="R5O-lV-3Xi" id="Oeb-dO-bMV"/>
                 <outlet property="label_Name" destination="uWJ-bf-Ho8" id="F2Y-FF-HfI"/>
             </connections>
         </placeholder>
@@ -16,16 +18,37 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWJ-bf-Ho8">
-                    <rect key="frame" x="227" y="10" width="24" height="16"/>
+                    <rect key="frame" x="226" y="10" width="24" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y12-DF-Ff2">
+                    <rect key="frame" x="0.0" y="0.0" width="6" height="36"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="6" id="ba6-Yo-kz7"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5O-lV-3Xi">
+                    <rect key="frame" x="470" y="0.0" width="6" height="36"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="6" id="Dox-ad-dZg"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="6" id="SUm-gk-N81"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="0.88363137160000005" blue="0.84308403099999996" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="y12-DF-Ff2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1eP-8B-scs"/>
+                <constraint firstItem="y12-DF-Ff2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6yj-fr-p4f"/>
+                <constraint firstAttribute="bottom" secondItem="y12-DF-Ff2" secondAttribute="bottom" id="IzX-1N-KUu"/>
+                <constraint firstAttribute="bottom" secondItem="R5O-lV-3Xi" secondAttribute="bottom" id="NHc-Ah-Ofr"/>
+                <constraint firstAttribute="trailing" secondItem="R5O-lV-3Xi" secondAttribute="trailing" id="Ryu-1b-Uxb"/>
                 <constraint firstItem="uWJ-bf-Ho8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Xss-Xe-Sqz"/>
                 <constraint firstItem="uWJ-bf-Ho8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="iiR-Gi-rhy"/>
+                <constraint firstItem="R5O-lV-3Xi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xmj-rI-8YK"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="410" y="183"/>
