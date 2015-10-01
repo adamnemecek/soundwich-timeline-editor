@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3802B14E664F66ACC7C02451 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F3D7883733C049835B82E5 /* libPods.a */; };
 		6800FDAB1BB6227F0068D888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800FDAA1BB6227F0068D888 /* AppDelegate.swift */; };
 		6800FDAD1BB6227F0068D888 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800FDAC1BB6227F0068D888 /* ViewController.swift */; };
 		6800FDB01BB6227F0068D888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6800FDAE1BB6227F0068D888 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 		687D3EF81BB79EDA0037B1D0 /* Timeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687D3EF71BB79EDA0037B1D0 /* Timeline.xib */; settings = {ASSET_TAGS = (); }; };
 		687D3EFA1BB79FB80037B1D0 /* View_Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D3EF91BB79FB80037B1D0 /* View_Timeline.swift */; settings = {ASSET_TAGS = (); }; };
 		68C0813B1BBCAC8400BED8C1 /* Class_Timespec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C0813A1BBCAC8400BED8C1 /* Class_Timespec.swift */; settings = {ASSET_TAGS = (); }; };
+		68EC32101BBCC67A00556BEA /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EC320F1BBCC67A00556BEA /* KxMenu.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +57,18 @@
 		6800FDCC1BB6227F0068D888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6800FDD81BB625660068D888 /* View_SoundBite.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View_SoundBite.xib; sourceTree = "<group>"; };
 		6800FDDA1BB626370068D888 /* View_SoundBite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View_SoundBite.swift; sourceTree = "<group>"; };
+		6867BF071BBCBC0600342851 /* SoundEditor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SoundEditor-Bridging-Header.h"; sourceTree = "<group>"; };
 		687D3EF51BB79EBA0037B1D0 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		687D3EF71BB79EDA0037B1D0 /* Timeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Timeline.xib; sourceTree = "<group>"; };
 		687D3EF91BB79FB80037B1D0 /* View_Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View_Timeline.swift; sourceTree = "<group>"; };
 		68C0813A1BBCAC8400BED8C1 /* Class_Timespec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Class_Timespec.swift; path = ../Class_Timespec.swift; sourceTree = "<group>"; };
+		68EC320E1BBCC67A00556BEA /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
+		68EC320F1BBCC67A00556BEA /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
+		68EC32111BBCC89A00556BEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		68EC32131BBCC8B400556BEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		74118F2CABF08F03F7D6E227 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A2F3D7883733C049835B82E5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9DBC38F6A6B9F95B12BBCA6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802B14E664F66ACC7C02451 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4944C0049480CCEA89E0AA5B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				74118F2CABF08F03F7D6E227 /* Pods.debug.xcconfig */,
+				C9DBC38F6A6B9F95B12BBCA6 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6800FD9E1BB6227F0068D888 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +113,8 @@
 				6800FDBE1BB6227F0068D888 /* SoundEditorTests */,
 				6800FDC91BB6227F0068D888 /* SoundEditorUITests */,
 				6800FDA81BB6227F0068D888 /* Products */,
+				4944C0049480CCEA89E0AA5B /* Pods */,
+				A656EB25524D8CEBCE92429A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +131,8 @@
 		6800FDA91BB6227F0068D888 /* SoundEditor */ = {
 			isa = PBXGroup;
 			children = (
+				68EC320E1BBCC67A00556BEA /* KxMenu.h */,
+				68EC320F1BBCC67A00556BEA /* KxMenu.m */,
 				68C0813A1BBCAC8400BED8C1 /* Class_Timespec.swift */,
 				6800FDAA1BB6227F0068D888 /* AppDelegate.swift */,
 				6800FDAC1BB6227F0068D888 /* ViewController.swift */,
@@ -121,6 +145,7 @@
 				687D3EF71BB79EDA0037B1D0 /* Timeline.xib */,
 				687D3EF91BB79FB80037B1D0 /* View_Timeline.swift */,
 				6800FDDA1BB626370068D888 /* View_SoundBite.swift */,
+				6867BF071BBCBC0600342851 /* SoundEditor-Bridging-Header.h */,
 			);
 			path = SoundEditor;
 			sourceTree = "<group>";
@@ -143,6 +168,16 @@
 			path = SoundEditorUITests;
 			sourceTree = "<group>";
 		};
+		A656EB25524D8CEBCE92429A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				68EC32131BBCC8B400556BEA /* Foundation.framework */,
+				68EC32111BBCC89A00556BEA /* UIKit.framework */,
+				A2F3D7883733C049835B82E5 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +185,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6800FDCF1BB6227F0068D888 /* Build configuration list for PBXNativeTarget "SoundEditor" */;
 			buildPhases = (
+				B98F6243E19DFB0E168FD5BE /* Check Pods Manifest.lock */,
 				6800FDA31BB6227F0068D888 /* Sources */,
 				6800FDA41BB6227F0068D888 /* Frameworks */,
 				6800FDA51BB6227F0068D888 /* Resources */,
+				E230B1CD84C0070F4523A88D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -271,12 +308,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B98F6243E19DFB0E168FD5BE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E230B1CD84C0070F4523A88D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6800FDA31BB6227F0068D888 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6800FDAD1BB6227F0068D888 /* ViewController.swift in Sources */,
+				68EC32101BBCC67A00556BEA /* KxMenu.m in Sources */,
 				68C0813B1BBCAC8400BED8C1 /* Class_Timespec.swift in Sources */,
 				6800FDAB1BB6227F0068D888 /* AppDelegate.swift in Sources */,
 				6800FDDB1BB626370068D888 /* View_SoundBite.swift in Sources */,
@@ -418,23 +489,29 @@
 		};
 		6800FDD01BB6227F0068D888 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74118F2CABF08F03F7D6E227 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SoundEditor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sklard.SoundEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SoundEditor/SoundEditor-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		6800FDD11BB6227F0068D888 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9DBC38F6A6B9F95B12BBCA6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SoundEditor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sklard.SoundEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SoundEditor/SoundEditor-Bridging-Header.h";
 			};
 			name = Release;
 		};

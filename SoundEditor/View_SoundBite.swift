@@ -38,6 +38,13 @@ class View_SoundBite: UIView {
         addSubview(contentView)
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor(red: 0.8, green:0, blue:0, alpha: 1.0).CGColor
+        
+        /*
+        KxMenu.showMenuInView(contentView, fromRect: contentView.frame, menuItems: [
+            KxMenuItem("Duplicate", image: nil, target: self, action: "pushMenuItem:"),
+            KxMenuItem("Delete", image: nil, target: self, action: "pushMenuItem:")]
+        )
+*/
     }
     
     

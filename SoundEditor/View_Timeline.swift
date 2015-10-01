@@ -75,9 +75,14 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         soundbite.label_Name.text = name
         
         // Gesture recognizer
-        let gestureRecog = UIPanGestureRecognizer()
-        gestureRecog.addTarget(self, action: "handleSoundbiteDrag:")
-        soundbite.addGestureRecognizer(gestureRecog)
+        let gestureRecogPan = UIPanGestureRecognizer()
+        gestureRecogPan.addTarget(self, action: "handleSoundbiteDrag:")
+        soundbite.addGestureRecognizer(gestureRecogPan)
+        soundbite.userInteractionEnabled = true
+        
+        let grHold = UILongPressGestureRecognizer()
+        grHold.addTarget(self, action: "handleSoundbiteLongPress:")
+        soundbite.addGestureRecognizer(grHold)
         soundbite.userInteractionEnabled = true
     }
     
@@ -91,8 +96,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
 
     
-    
-    
+    var anImage: UIImage!
     
     
     
@@ -111,7 +115,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         
         contentView.frame = bounds
         addSubview(contentView)
-    }
+            }
     
     
     
@@ -140,13 +144,27 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
-    
 
     
+    func handleSoundbiteLongPress(sender: UILongPressGestureRecognizer) {
+        if let sbite = sender.view as? View_SoundBite {
+            KxMenu.showMenuInView(sbite, fromRect: sbite.frame, menuItems: [
+                KxMenuItem("Duplicate", image: nil, target: self, action: "pushMenuItem:"),
+                KxMenuItem("Delete", image: nil, target: self, action: "pushMenuItem:")])
+        }
+    }
+
     
-    
-    
+    func pushMenuItem(sender: KxMenuItem) {
+        let commandChosen = sender.title
+        commandChosen
+    }
+
+
+
+
+
+
     // Internal methods
     
     override func drawRect(rect: CGRect) {
