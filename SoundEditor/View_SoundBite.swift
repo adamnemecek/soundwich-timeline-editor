@@ -11,6 +11,8 @@ import UIKit
 class View_SoundBite: UIView {
 
     @IBOutlet var contentView: UIView!
+    
+    var name = "Clip"
 
     @IBOutlet weak var label_Name: UILabel!
     
@@ -38,14 +40,12 @@ class View_SoundBite: UIView {
         addSubview(contentView)
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor(red: 0.8, green:0, blue:0, alpha: 1.0).CGColor
-        
-        /*
-        KxMenu.showMenuInView(contentView, fromRect: contentView.frame, menuItems: [
-            KxMenuItem("Duplicate", image: nil, target: self, action: "pushMenuItem:"),
-            KxMenuItem("Delete", image: nil, target: self, action: "pushMenuItem:")]
-        )
-*/
     }
     
+    // I wanted to name this "setName" but that is reserved apparently.
+    func updateName(name: String) {
+        self.name = name
+        label_Name.text = name
+    }
     
 }

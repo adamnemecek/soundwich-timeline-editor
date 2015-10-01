@@ -10,32 +10,43 @@ import UIKit
 
 
 protocol Protocol_MessagesFromTimeline {
-    func soundbiteDidMove(name:String, newStartTime:Float)
+    func soundbiteTimespecDidChange(name:String, newSpec:Timespec)
+    func soundbiteDeleteRequested(name:String)
+    func soundbiteDuplicateRequested(name:String)
+    func soundbiteRenameRequested(nameCurrent:String, nameNew:String)
 }
+
 
 enum TimelineError: ErrorType {
     case SoundbiteNameInUse
+    case SoundbiteNameNotFound
 }
+
 
 
 
 class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet var contentView: UIView!
+
+    // The user should register a delegate callback func to receive
+    // messages from the instance of this view:
+    var delegate: Protocol_MessagesFromTimeline?
     
-    
-    // Constants
+    // Fixed characteristics
     let channelCount = 8
     let channelPadding : Float = 2
     let timelineWidthInSec = 8 //seconds
 
     
-    // Derived by the geometry
-    var secWidthInPx : Float = 0
-    var channelHeight : Float = 0 //pixels
+    // Derived from the fixed characteristics and the geometry
+    var secWidthInPx : Float = 0   //pixels
+    var channelHeight : Float = 0  //pixels
     
     // Database of soundbites in this timeline
     var dictSoundbites = [String: View_SoundBite]()
+    
+    
     
     
     required init(coder aDecoder: NSCoder) {
@@ -50,7 +61,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     
     
-
     
     
     // Public API for populating this timeline with visual representations of "soundbite" objects in
@@ -86,36 +96,40 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         soundbite.userInteractionEnabled = true
     }
     
-    func deleteSoundbite(name:String) {
+    
+    
+    
+    func deleteSoundbite(name:String) throws {
         if let soundbite = dictSoundbites[name] {
             soundbite.removeFromSuperview()
             dictSoundbites.removeValueForKey(name)
+        } else {
+            throw TimelineError.SoundbiteNameNotFound
         }
     }
     
     
-
     
-    var anImage: UIImage!
+    
     
     
     
     // @ TODO
     // Re-derive geometry when the geometry of this (the timeline) changes, e.g. rotate phone.
     
-
+    
     func initSubviews() {
         // Calculate derived values based on the incoming geometry
         secWidthInPx = Float(bounds.width / CGFloat(timelineWidthInSec))
         channelHeight = Float(Int(bounds.height) / channelCount)
-
+        
         // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
         
         contentView.frame = bounds
         addSubview(contentView)
-            }
+    }
     
     
     
@@ -146,22 +160,35 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     }
 
     
+    var sbiteContextOfPopupMenu : View_SoundBite?
+    
     func handleSoundbiteLongPress(sender: UILongPressGestureRecognizer) {
         if let sbite = sender.view as? View_SoundBite {
-            KxMenu.showMenuInView(sbite, fromRect: sbite.frame, menuItems: [
+            sbiteContextOfPopupMenu = sbite
+            KxMenu.showMenuInView(self, fromRect: sbite.frame, menuItems: [
+                KxMenuItem("Rename", image: nil, target: self, action: "pushMenuItem:"),
                 KxMenuItem("Duplicate", image: nil, target: self, action: "pushMenuItem:"),
                 KxMenuItem("Delete", image: nil, target: self, action: "pushMenuItem:")])
         }
     }
-
+    
     
     func pushMenuItem(sender: KxMenuItem) {
         let commandChosen = sender.title
-        commandChosen
+        switch commandChosen {
+        case "Rename":
+            return
+        case "Delete":
+            if let delegate = delegate {
+                delegate.soundbiteDeleteRequested(sbiteContextOfPopupMenu!.name)
+            }
+        default:
+            return
+        }
     }
-
-
-
+    
+    
+    
 
 
 
