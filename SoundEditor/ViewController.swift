@@ -16,8 +16,8 @@ class ViewController: UIViewController, MessagesFromTimelineDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        try! timeline.createSoundbite("Intro", channelIndex:0, spec: Timespec(start:0, end:3))
-        try! timeline.createSoundbite("Main", channelIndex:1,  spec: Timespec(start:3, end:7.8))
+        try! timeline.createSoundbite("Intro", channelIndex:0, spec: Timespec(start:0, end:3, clipStart:0, clipEnd:3))
+        try! timeline.createSoundbite("Main", channelIndex:1,  spec: Timespec(start:3, end:7.8, clipStart:0, clipEnd:4.8))
         
         timeline.registerDelegate(self)
     }

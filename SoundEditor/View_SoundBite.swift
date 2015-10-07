@@ -20,10 +20,25 @@ class View_SoundBite: UIView {
     
     
     var name = "Clip"
+    var channelIndex : Int?
+    var timespec : Timespec?
     
     @IBOutlet weak var label_Name: UILabel!
     
+    
+    @IBOutlet weak var nameEditorTextField: UITextField!
+    
+    @IBAction func handleEditingOfNameDidEnd(sender: AnyObject) {
+    }
+    
+    
+    
 
+    func startEditingProcess() {
+        nameEditorTextField.text = label_Name.text
+        nameEditorTextField.hidden = false
+        
+    }
 
     
     required init(coder aDecoder: NSCoder) {

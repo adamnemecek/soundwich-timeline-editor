@@ -61,6 +61,28 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     }
     
     
+    override func layoutSubviews() {
+        // Calculate derived values based on the incoming geometry
+        secWidthInPx = Float(bounds.width / CGFloat(timelineWidthInSec))
+        channelHeight = Float(Int(bounds.height) / channelCount)
+        
+        super.layoutSubviews()
+        
+        for _sb in dictSoundbites.values {
+            if let sb = _sb as? View_SoundBite {
+                if let spec = sb.timespec {
+                    let frameRect = CGRectMake(
+                        CGFloat(spec.start * secWidthInPx),
+                        CGFloat(((Float(sb.channelIndex!)*channelHeight)+channelPadding)),
+                        CGFloat(spec.duration()*secWidthInPx),
+                        CGFloat(channelHeight-2*channelPadding))
+                    sb.frame = frameRect
+                    sb.leftConstraintForHandleClippingLeft.constant = CGFloat(spec.clipStart * secWidthInPx)
+                    sb.leftConstraintForHandleClippingRight.constant = CGFloat(spec.clipEnd * secWidthInPx) - sb.handleClippingRight.bounds.width
+                }
+            }
+        }
+    }
     
     
     
@@ -85,9 +107,11 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         
         
         let soundbite = View_SoundBite(frame: frameRect)
+        soundbite.timespec = spec
+        soundbite.channelIndex = channelIndex
+        soundbite.label_Name.text = name
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
-        soundbite.label_Name.text = name
         
         // Gesture recognizer: drag the soundbite as a whole
         let gestureRecogPan = UIPanGestureRecognizer()
@@ -124,9 +148,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     func moveScrubberHairline(timeInSeconds: Float) {
         scrubberHairline.frame.origin.x = CGFloat(secWidthInPx * timeInSeconds)
     }
-
-    
-    
     
     
     
@@ -134,10 +155,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     // Re-derive geometry when the geometry of this (the timeline) changes, e.g. rotate phone.
     
     func initSubviews() {
-        // Calculate derived values based on the incoming geometry
-        secWidthInPx = Float(bounds.width / CGFloat(timelineWidthInSec))
-        channelHeight = Float(Int(bounds.height) / channelCount)
-        
         // Instantiate from XIB file
         let nib = UINib(nibName: "Timeline", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
@@ -193,13 +210,14 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
 
     
     func reportTimespecChange(sb: View_SoundBite) {
+        let newTimespec = Timespec(
+            start: Float(sb.frame.origin.x) / secWidthInPx,
+            end: Float(sb.frame.origin.x + sb.frame.width) / secWidthInPx,
+            clipStart: Float(sb.positionOfLeftClip()) / secWidthInPx,
+            clipEnd: Float(sb.positionOfRightClip()) / secWidthInPx
+        )
+        sb.timespec = newTimespec
         if let delegate = delegate {
-            let newTimespec = Timespec(
-                start: Float(sb.frame.origin.x) / secWidthInPx,
-                end: Float(sb.frame.origin.x + sb.frame.width) / secWidthInPx,
-                clipStart: Float(sb.positionOfLeftClip()) / secWidthInPx,
-                clipEnd: Float(sb.positionOfRightClip()) / secWidthInPx
-            )
             delegate.soundbiteTimespecDidChange(sb.name, newSpec: newTimespec)
         }
     }
@@ -230,7 +248,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         let commandChosen = sender.title
         switch commandChosen {
         case "Rename":
-            return
+            sbiteContextOfPopupMenu?.startEditingProcess()
         case "Delete":
             if let delegate = delegate {
                 delegate.soundbiteDeleteRequested(sbiteContextOfPopupMenu!.name)
