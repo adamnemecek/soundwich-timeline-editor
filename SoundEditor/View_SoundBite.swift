@@ -16,6 +16,8 @@ class View_SoundBite: UIView {
     @IBOutlet weak var leftConstraintForHandleClippingLeft: NSLayoutConstraint!
     
     @IBOutlet weak var handleClippingRight: UIView!
+    @IBOutlet weak var leftConstraintForHandleClippingRight: NSLayoutConstraint!
+    
     
     var name = "Clip"
 
@@ -43,8 +45,9 @@ class View_SoundBite: UIView {
         nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)
-        //contentView.layer.borderWidth = 2
-        //contentView.layer.borderColor = UIColor(red: 0.8, green:0, blue:0, alpha: 1.0).CGColor
+        // Position the right-side clipping handle as its initial "x"
+        // is based on the width of the soundbite's frame
+        leftConstraintForHandleClippingRight.constant = bounds.width - handleClippingRight.bounds.width
     }
     
     // I wanted to name this "setName" but that is reserved apparently.
@@ -53,9 +56,17 @@ class View_SoundBite: UIView {
         label_Name.text = name
     }
     
-    func moveLeftHandle(xFromLeftSideOfSoundbite: CGFloat) -> Bool {
-        leftConstraintForHandleClippingLeft.constant = xFromLeftSideOfSoundbite
-        return true
+    func moveLeftHandle(deltaX: CGFloat) -> Bool {
+        let curX = leftConstraintForHandleClippingLeft.constant
+        let minX = CGFloat(0)
+        let maxX = leftConstraintForHandleClippingRight.constant
+	let newX = min(max(curX+deltaX, minX), maxX)
+	if (newX != curX) {
+	       leftConstraintForHandleClippingLeft.constant = newX
+	       return true
+	       }else{
+	       return false
+}	       
     }
     
 }

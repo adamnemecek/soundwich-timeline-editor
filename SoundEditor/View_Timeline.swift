@@ -181,18 +181,12 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     func handleSoundbiteClipHandleDrag(sender: UIPanGestureRecognizer) {
         if let handle = sender.view {
             if let sb = handle.superview!.superview as? View_SoundBite {
-                if curConstraintConstant == nil {
-                    // This is the start of a drag operation
-                    self.curConstraintConstant = sb.leftConstraintForHandleClippingLeft.constant
-                    // Determine the limits to the user's ability to drag this left/right
-                    maxAllowedNegativeTranslation = 0
-                    maxAllowedPositiveTranslation = 25
-                }
                 let translation = sender.translationInView(handle.superview)
-                sb.moveLeftHandle(curConstraintConstant! + min(max(translation.x, maxAllowedNegativeTranslation!), maxAllowedPositiveTranslation!))
+                if (sb.moveLeftHandle(translation.x)) {
+                    sender.setTranslation(CGPointZero, inView: handle.superview!)
+                }
                 if (sender.state == .Ended) {
-                    curFrameOrigin = nil
-                    //sender.setTranslation(CGPointZero, inView: handle.superview!)
+                    // Need to report! curConstraintConstant = nil
                 }
             }
         }
