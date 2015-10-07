@@ -20,18 +20,6 @@ class ViewController: UIViewController, MessagesFromTimelineDelegate {
         try! timeline.createSoundbite("Main", channelIndex:1,  spec: Timespec(start:3, end:7.8))
         
         timeline.registerDelegate(self)
-        
-        
-        // *** THIS WOULD BE HOW I WOULD DO PROGRAMMATIC CREATION OF CUSTVIEW CHILDREN.
-        // BUT IT IS NOT NECESSARY TO DO THIS IF YOU INSTANTIATE VIA STORYBOARD.
-        
-        // we'd probably want to set up constraints here in a real app
-        //soundbite = View_SoundBite(frame: CGRectMake(0, 20, view.bounds.width, 200))
-        //soundbite.image = UIImage(named: "codepath_logo")
-        //.caption = "CodePath starts new class for designers"
-        //view.addSubview(soundbite)
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
