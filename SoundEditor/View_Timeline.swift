@@ -41,7 +41,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
 
     
     // Derived from the fixed characteristics and the geometry
-    var secWidthInPx : Float = 0   //pixels
+    var secWidthInPx : Float = 0   //width of a second's worth of duration's representation, in pixels
     var channelHeight : Float = 0  //pixels
     
     // Database of soundbites in this timeline
@@ -94,12 +94,11 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         gestureRecogPan.addTarget(self, action: "handleSoundbiteDrag:")
         soundbite.addGestureRecognizer(gestureRecogPan)
         
-        // Gesture recognizer: drag the soundbite clip handles
+        // Gesture recognizer: drag the soundbite clipping handles (L and R)
         let gestureRecogPanHandleLeft = UIPanGestureRecognizer()
         let gestureRecogPanHandleRight = UIPanGestureRecognizer()
         setUpHandleMovementSupport(gestureRecogPanHandleLeft, handle: soundbite.handleClippingLeft)
         setUpHandleMovementSupport(gestureRecogPanHandleRight, handle: soundbite.handleClippingRight)
-        
         
         // Gesture: long-press on soundbite to bring up menu
         let grHold = UILongPressGestureRecognizer()
@@ -109,12 +108,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         soundbite.userInteractionEnabled = true
     }
     
-    
-    func setUpHandleMovementSupport(gest: UIPanGestureRecognizer, handle: UIView) {
-        gest.addTarget(self, action: "handleSoundbiteClipHandleDrag:")
-        handle.addGestureRecognizer(gest)
-        handle.userInteractionEnabled = true
-    }
     
     
     func deleteSoundbite(name:String) throws {
@@ -139,7 +132,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     // @ TODO
     // Re-derive geometry when the geometry of this (the timeline) changes, e.g. rotate phone.
-    
     
     func initSubviews() {
         // Calculate derived values based on the incoming geometry
@@ -178,6 +170,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
             if (sender.state == .Ended) {
                 curFrameOrigin = nil
                 sender.setTranslation(CGPointZero, inView: self)
+                self.reportTimespecChange(sbite)
             }
         }
     }
@@ -191,13 +184,32 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
                     sender.setTranslation(CGPointZero, inView: handle.superview!)
                 }
                 if (sender.state == .Ended) {
-                    // Need to report! curConstraintConstant = nil
+                    self.reportTimespecChange(sb)
                 }
             }
         }
-
     }
 
+
+    
+    func reportTimespecChange(sb: View_SoundBite) {
+        if let delegate = delegate {
+            let newTimespec = Timespec(
+                start: Float(sb.frame.origin.x) / secWidthInPx,
+                end: Float(sb.frame.origin.x + sb.frame.width) / secWidthInPx,
+                clipStart: Float(sb.positionOfLeftClip()) / secWidthInPx,
+                clipEnd: Float(sb.positionOfRightClip()) / secWidthInPx
+            )
+            delegate.soundbiteTimespecDidChange(sb.name, newSpec: newTimespec)
+        }
+    }
+    
+    
+    func setUpHandleMovementSupport(gest: UIPanGestureRecognizer, handle: UIView) {
+        gest.addTarget(self, action: "handleSoundbiteClipHandleDrag:")
+        handle.addGestureRecognizer(gest)
+        handle.userInteractionEnabled = true
+    }
     
     
     

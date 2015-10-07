@@ -9,7 +9,7 @@
 import UIKit
 
 class View_SoundBite: UIView {
-
+    
     @IBOutlet var contentView: UIView!
     
     @IBOutlet weak var handleClippingLeft: UIView!
@@ -20,15 +20,11 @@ class View_SoundBite: UIView {
     
     
     var name = "Clip"
-
+    
     @IBOutlet weak var label_Name: UILabel!
     
 
-    // What is the actual current persistent location of this object, i.e. if the user was dragging it somewhere else
-    // but then aborted the drag operation, where would this object naturally return to?
-    
-    var timespec : Timespec?
-    
+
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -40,6 +36,7 @@ class View_SoundBite: UIView {
         initSubviews()
     }
     
+    
     func initSubviews() {
         let nib = UINib(nibName: "View_SoundBite", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
@@ -50,10 +47,21 @@ class View_SoundBite: UIView {
         leftConstraintForHandleClippingRight.constant = bounds.width - handleClippingRight.bounds.width
     }
     
+    
     // I wanted to name this "setName" but that is reserved apparently.
     func updateName(name: String) {
         self.name = name
         label_Name.text = name
+    }
+    
+    func positionOfLeftClip() -> CGFloat {
+        // this is normalized so the position being reported is the LEFT edge of the LEFT clipping handle
+        return leftConstraintForHandleClippingLeft.constant
+    }
+    
+    func positionOfRightClip() -> CGFloat {
+        // this is normalized so the position being reported is the RIGHT edge of the RIGHT clipping handle
+        return leftConstraintForHandleClippingRight.constant + handleClippingRight.bounds.width
     }
     
     func moveClippingHandle(whichHandle: UIView, deltaX: CGFloat) -> Bool {
