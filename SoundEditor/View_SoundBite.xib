@@ -10,6 +10,7 @@
                 <outlet property="handleClippingLeft" destination="y12-DF-Ff2" id="Bx0-Sr-XiY"/>
                 <outlet property="handleClippingRight" destination="R5O-lV-3Xi" id="Oeb-dO-bMV"/>
                 <outlet property="label_Name" destination="uWJ-bf-Ho8" id="F2Y-FF-HfI"/>
+                <outlet property="leftConstraintForHandleClippingLeft" destination="1eP-8B-scs" id="az3-j1-vG0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

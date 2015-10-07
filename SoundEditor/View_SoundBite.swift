@@ -11,7 +11,10 @@ import UIKit
 class View_SoundBite: UIView {
 
     @IBOutlet var contentView: UIView!
+    
     @IBOutlet weak var handleClippingLeft: UIView!
+    @IBOutlet weak var leftConstraintForHandleClippingLeft: NSLayoutConstraint!
+    
     @IBOutlet weak var handleClippingRight: UIView!
     
     var name = "Clip"
@@ -50,8 +53,8 @@ class View_SoundBite: UIView {
         label_Name.text = name
     }
     
-    func moveLeftHandle(pxOffset: CGFloat) -> Bool {
-        handleClippingLeft.frame.origin.x = max(0, pxOffset)
+    func moveLeftHandle(xFromLeftSideOfSoundbite: CGFloat) -> Bool {
+        leftConstraintForHandleClippingLeft.constant = xFromLeftSideOfSoundbite
         return true
     }
     
