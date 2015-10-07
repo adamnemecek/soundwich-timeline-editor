@@ -96,9 +96,10 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         
         // Gesture recognizer: drag the soundbite clip handles
         let gestureRecogPanHandleLeft = UIPanGestureRecognizer()
-        gestureRecogPanHandleLeft.addTarget(self, action: "handleSoundbiteClipHandleDrag:")
-        soundbite.handleClippingLeft.addGestureRecognizer(gestureRecogPanHandleLeft)
-        soundbite.handleClippingLeft.userInteractionEnabled = true
+        let gestureRecogPanHandleRight = UIPanGestureRecognizer()
+        setUpHandleMovementSupport(gestureRecogPanHandleLeft, handle: soundbite.handleClippingLeft)
+        setUpHandleMovementSupport(gestureRecogPanHandleRight, handle: soundbite.handleClippingRight)
+        
         
         // Gesture: long-press on soundbite to bring up menu
         let grHold = UILongPressGestureRecognizer()
@@ -109,6 +110,11 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     }
     
     
+    func setUpHandleMovementSupport(gest: UIPanGestureRecognizer, handle: UIView) {
+        gest.addTarget(self, action: "handleSoundbiteClipHandleDrag:")
+        handle.addGestureRecognizer(gest)
+        handle.userInteractionEnabled = true
+    }
     
     
     func deleteSoundbite(name:String) throws {
@@ -152,7 +158,6 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     // This is non-nil only when a drag is in process:
     var curFrameOrigin : CGPoint?
-    var curConstraintConstant : CGFloat?
     var maxAllowedNegativeTranslation : CGFloat?
     var maxAllowedPositiveTranslation : CGFloat?
     

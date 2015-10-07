@@ -66,7 +66,7 @@ class View_SoundBite: UIView {
             whichConstraint = leftConstraintForHandleClippingLeft
             curX = leftConstraintForHandleClippingLeft.constant
             minX = CGFloat(0)
-            maxX = leftConstraintForHandleClippingRight.constant
+            maxX = leftConstraintForHandleClippingRight.constant - handleWidth
         } else {
             whichConstraint = leftConstraintForHandleClippingRight
             curX = leftConstraintForHandleClippingRight.constant
