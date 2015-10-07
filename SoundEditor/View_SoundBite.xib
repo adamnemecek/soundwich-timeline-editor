@@ -39,15 +39,25 @@
                         <constraint firstAttribute="width" constant="6" id="Dox-ad-dZg"/>
                     </constraints>
                 </view>
+                <textField hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Name this clip!" borderStyle="roundedRect" placeholder="Name this clip!" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aaC-AM-mhF">
+                    <rect key="frame" x="5" y="2" width="466" height="32"/>
+                    <color key="backgroundColor" red="0.90980398654937744" green="0.86666673421859741" blue="0.48235297203063965" alpha="0.41000000000000003" colorSpace="deviceRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="0.88363137160000005" blue="0.84308403099999996" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="y12-DF-Ff2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1eP-8B-scs"/>
                 <constraint firstItem="y12-DF-Ff2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6yj-fr-p4f"/>
+                <constraint firstItem="aaC-AM-mhF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="9y8-u4-OaJ"/>
                 <constraint firstItem="R5O-lV-3Xi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BDv-Dr-xbW"/>
+                <constraint firstAttribute="trailing" secondItem="aaC-AM-mhF" secondAttribute="trailing" constant="5" id="CTh-EY-ScG"/>
                 <constraint firstAttribute="bottom" secondItem="y12-DF-Ff2" secondAttribute="bottom" id="IzX-1N-KUu"/>
+                <constraint firstAttribute="bottom" secondItem="aaC-AM-mhF" secondAttribute="bottom" constant="2" id="JeQ-i6-Tml"/>
                 <constraint firstAttribute="bottom" secondItem="R5O-lV-3Xi" secondAttribute="bottom" id="NHc-Ah-Ofr"/>
                 <constraint firstItem="uWJ-bf-Ho8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Xss-Xe-Sqz"/>
+                <constraint firstItem="aaC-AM-mhF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="Yu6-8v-nFc"/>
                 <constraint firstItem="uWJ-bf-Ho8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="iiR-Gi-rhy"/>
                 <constraint firstItem="R5O-lV-3Xi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xmj-rI-8YK"/>
             </constraints>
