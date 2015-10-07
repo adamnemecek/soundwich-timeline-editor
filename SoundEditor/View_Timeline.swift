@@ -182,7 +182,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         if let handle = sender.view {
             if let sb = handle.superview!.superview as? View_SoundBite {
                 let translation = sender.translationInView(handle.superview)
-                if (sb.moveLeftHandle(translation.x)) {
+                if (sb.moveClippingHandle(handle, deltaX: translation.x)) {
                     sender.setTranslation(CGPointZero, inView: handle.superview!)
                 }
                 if (sender.state == .Ended) {

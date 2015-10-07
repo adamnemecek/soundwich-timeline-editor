@@ -56,17 +56,32 @@ class View_SoundBite: UIView {
         label_Name.text = name
     }
     
-    func moveLeftHandle(deltaX: CGFloat) -> Bool {
-        let curX = leftConstraintForHandleClippingLeft.constant
-        let minX = CGFloat(0)
-        let maxX = leftConstraintForHandleClippingRight.constant
-	let newX = min(max(curX+deltaX, minX), maxX)
-	if (newX != curX) {
-	       leftConstraintForHandleClippingLeft.constant = newX
-	       return true
+    func moveClippingHandle(whichHandle: UIView, deltaX: CGFloat) -> Bool {
+        let handleWidth = whichHandle.bounds.width
+        var curX = CGFloat(0)
+        var minX = CGFloat(0)
+        var maxX = CGFloat(0)
+        var whichConstraint : NSLayoutConstraint?
+        if (whichHandle == handleClippingLeft) {
+            whichConstraint = leftConstraintForHandleClippingLeft
+            curX = leftConstraintForHandleClippingLeft.constant
+            minX = CGFloat(0)
+            maxX = leftConstraintForHandleClippingRight.constant
+        } else {
+            whichConstraint = leftConstraintForHandleClippingRight
+            curX = leftConstraintForHandleClippingRight.constant
+            minX = leftConstraintForHandleClippingLeft.constant + handleWidth
+            maxX = self.bounds.width - handleWidth
+        }
+        
+        let newX = min(max(curX+deltaX, minX), maxX)
+        
+        if (newX != curX) {
+            whichConstraint!.constant = newX
+            return true
 	       }else{
-	       return false
-}	       
+            return false
+        }
     }
     
 }
