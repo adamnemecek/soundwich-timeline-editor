@@ -9,7 +9,7 @@
 import UIKit
 
 
-protocol Protocol_MessagesFromTimeline {
+protocol MessagesFromTimelineDelegate {
     func soundbiteTimespecDidChange(name:String, newSpec:Timespec)
     func soundbiteDeleteRequested(name:String)
     func soundbiteDuplicateRequested(name:String)
@@ -28,10 +28,11 @@ enum TimelineError: ErrorType {
 class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var scrubberHairline: UIView!
 
     // The user should register a delegate callback func to receive
     // messages from the instance of this view:
-    var delegate: Protocol_MessagesFromTimeline?
+    var delegate: MessagesFromTimelineDelegate?
     
     // Fixed characteristics
     let channelCount = 8
@@ -65,6 +66,10 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     
     // Public API for populating this timeline with visual representations of "soundbite" objects in
     // the data model.
+    
+    func registerDelegate(delegate: MessagesFromTimelineDelegate) {
+        self.delegate = delegate    
+    }
     
     func createSoundbite(name:String, channelIndex:Int, spec:Timespec) throws {
         
@@ -109,6 +114,11 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
     }
     
     
+    // TODO: Animate this!
+    func moveScrubberHairline(timeInSeconds: Float) {
+        scrubberHairline.frame.origin.x = CGFloat(secWidthInPx * timeInSeconds)
+    }
+
     
     
     
