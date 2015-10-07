@@ -50,4 +50,9 @@ class View_SoundBite: UIView {
         label_Name.text = name
     }
     
+    func moveLeftHandle(pxOffset: CGFloat) -> Bool {
+        handleClippingLeft.frame.origin.x = max(0, pxOffset)
+        return true
+    }
+    
 }

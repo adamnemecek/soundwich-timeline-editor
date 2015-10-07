@@ -89,15 +89,22 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         addSubview(soundbite)
         soundbite.label_Name.text = name
         
-        // Gesture recognizer
+        // Gesture recognizer: drag the soundbite as a whole
         let gestureRecogPan = UIPanGestureRecognizer()
         gestureRecogPan.addTarget(self, action: "handleSoundbiteDrag:")
         soundbite.addGestureRecognizer(gestureRecogPan)
-        soundbite.userInteractionEnabled = true
         
+        // Gesture recognizer: drag the soundbite clip handles
+        let gestureRecogPanHandleLeft = UIPanGestureRecognizer()
+        gestureRecogPanHandleLeft.addTarget(self, action: "handleSoundbiteClipHandleDrag:")
+        soundbite.handleClippingLeft.addGestureRecognizer(gestureRecogPanHandleLeft)
+        soundbite.handleClippingLeft.userInteractionEnabled = true
+        
+        // Gesture: long-press on soundbite to bring up menu
         let grHold = UILongPressGestureRecognizer()
         grHold.addTarget(self, action: "handleSoundbiteLongPress:")
         soundbite.addGestureRecognizer(grHold)
+        
         soundbite.userInteractionEnabled = true
     }
     
@@ -169,6 +176,33 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         }
     }
 
+    
+    func handleSoundbiteClipHandleDrag(sender: UIPanGestureRecognizer) {
+        if let handle = sender.view {
+            if let sb = handle.superview!.superview as? View_SoundBite {
+                if curFrameOrigin == nil {
+                    // This is the start of a drag operation
+                    self.curFrameOrigin = handle.frame.origin
+                    // Determine the limits to the user's ability to drag this left/right
+                    maxAllowedNegativeTranslation = 0
+                    maxAllowedPositiveTranslation = 25
+                }
+                let translation = sender.translationInView(handle.superview)
+                let currentOrig = curFrameOrigin!
+                handle.frame.origin = CGPointMake(
+                    currentOrig.x + min(max(translation.x, maxAllowedNegativeTranslation!), maxAllowedPositiveTranslation!),
+                    currentOrig.y)
+                if (sender.state == .Ended) {
+                    curFrameOrigin = nil
+                    //sender.setTranslation(CGPointZero, inView: handle.superview!)
+                }
+            }
+        }
+
+    }
+
+    
+    
     
     var sbiteContextOfPopupMenu : View_SoundBite?
     
