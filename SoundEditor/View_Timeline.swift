@@ -265,6 +265,8 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
 
     // Internal methods
     
+    var clippedoutPatternImage : UIImage?
+    
     override func drawRect(rect: CGRect) {
         
         let context = UIGraphicsGetCurrentContext()
@@ -290,6 +292,26 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
             CGContextStrokePath(context)
         }
         
+        
+        // We now want to create an off-screen-image pattern for repeating to use as the background for clipped-out areas of soundbites.
+        let patternSize = 30
+        let drawSize = CGSize(width: patternSize, height: patternSize)
+        
+        UIGraphicsBeginImageContextWithOptions(drawSize, true, 0.0)
+        let patContext = UIGraphicsGetCurrentContext()
+        CGContextSetStrokeColorWithColor(patContext, color)
+        
+        let diagBandWidth = Double(6)
+        let spacingFactor = 2.6
+        CGContextSetLineWidth(patContext, CGFloat(diagBandWidth))
+        for _i in 0...10 {
+            let i = Double(_i)
+            CGContextMoveToPoint(patContext, 0, CGFloat(0 + i*spacingFactor*diagBandWidth))
+            CGContextAddLineToPoint(patContext, 300, CGFloat(300 + i*spacingFactor*diagBandWidth))
+            CGContextStrokePath(patContext)
+        }
+        self.clippedoutPatternImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
     }
     
 
