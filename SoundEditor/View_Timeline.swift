@@ -106,11 +106,10 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
             CGFloat(channelHeight-2*channelPadding))
         
         
-        let soundbite = View_SoundBite(frame: frameRect)
+        let soundbite = View_SoundBite(frame: frameRect, _imageForClippedOutPatterning: self.clippedoutPatternImage!)
         soundbite.timespec = spec
         soundbite.channelIndex = channelIndex
         soundbite.label_Name.text = name
-        soundbite.imageForClippedOutPatterning = self.clippedoutPatternImage
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
         
@@ -162,6 +161,9 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         
         contentView.frame = bounds
         addSubview(contentView)
+        
+        self.drawRect(self.bounds)
+
     }
     
     

@@ -47,7 +47,8 @@ class View_SoundBite: UIView {
         initSubviews()
     }
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, _imageForClippedOutPatterning: UIImage) {
+        self.imageForClippedOutPatterning = _imageForClippedOutPatterning
         super.init(frame: frame)
         initSubviews()
     }
@@ -61,6 +62,9 @@ class View_SoundBite: UIView {
         // Position the right-side clipping handle as its initial "x"
         // is based on the width of the soundbite's frame
         leftConstraintForHandleClippingRight.constant = bounds.width - handleClippingRight.bounds.width
+        
+        // Example of how to set bg to a pattern:
+        // contentView.backgroundColor = UIColor(patternImage: imageForClippedOutPatterning!)
     }
     
     
