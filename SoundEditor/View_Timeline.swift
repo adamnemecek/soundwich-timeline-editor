@@ -110,6 +110,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         soundbite.timespec = spec
         soundbite.channelIndex = channelIndex
         soundbite.label_Name.text = name
+        soundbite.imageForClippedOutPatterning = self.clippedoutPatternImage
         dictSoundbites[name] = soundbite
         addSubview(soundbite)
         
