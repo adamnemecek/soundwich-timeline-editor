@@ -18,6 +18,12 @@ class View_SoundBite: UIView {
     @IBOutlet weak var handleClippingRight: UIView!
     @IBOutlet weak var leftConstraintForHandleClippingRight: NSLayoutConstraint!
     
+    @IBOutlet weak var backgroundForLeftClippedout: UIView!
+    @IBOutlet weak var widthConstraintForLeftClippedoutBackground: NSLayoutConstraint!
+    
+    @IBOutlet weak var backgroundForRightClippedout: UIView!
+    @IBOutlet weak var widthConstraintForRightClippedoutBackground: NSLayoutConstraint!
+    
     
     var name = "Clip"
     var channelIndex : Int?
@@ -63,8 +69,8 @@ class View_SoundBite: UIView {
         // is based on the width of the soundbite's frame
         leftConstraintForHandleClippingRight.constant = bounds.width - handleClippingRight.bounds.width
         
-        // Example of how to set bg to a pattern:
-        // contentView.backgroundColor = UIColor(patternImage: imageForClippedOutPatterning!)
+        backgroundForLeftClippedout.backgroundColor = UIColor(patternImage: imageForClippedOutPatterning!)
+        backgroundForRightClippedout.backgroundColor = UIColor(patternImage: imageForClippedOutPatterning!)
     }
     
     
@@ -89,23 +95,33 @@ class View_SoundBite: UIView {
         var curX = CGFloat(0)
         var minX = CGFloat(0)
         var maxX = CGFloat(0)
+        var newX = CGFloat(0)
+        var newBgWidth = CGFloat(0)
+        
         var whichConstraint : NSLayoutConstraint?
+        var whichConstraintForBG : NSLayoutConstraint?
+        
         if (whichHandle == handleClippingLeft) {
             whichConstraint = leftConstraintForHandleClippingLeft
+            whichConstraintForBG = widthConstraintForLeftClippedoutBackground
             curX = leftConstraintForHandleClippingLeft.constant
             minX = CGFloat(0)
             maxX = leftConstraintForHandleClippingRight.constant - handleWidth
+            newX = min(max(curX+deltaX, minX), maxX)
+            newBgWidth = newX
         } else {
             whichConstraint = leftConstraintForHandleClippingRight
+            whichConstraintForBG = widthConstraintForRightClippedoutBackground
             curX = leftConstraintForHandleClippingRight.constant
             minX = leftConstraintForHandleClippingLeft.constant + handleWidth
             maxX = self.bounds.width - handleWidth
+            newX = min(max(curX+deltaX, minX), maxX)
+            newBgWidth = maxX - newX
         }
-        
-        let newX = min(max(curX+deltaX, minX), maxX)
         
         if (newX != curX) {
             whichConstraint!.constant = newX
+            whichConstraintForBG!.constant = newBgWidth
             return true
 	       }else{
             return false
