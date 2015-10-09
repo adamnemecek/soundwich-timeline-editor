@@ -77,8 +77,15 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
                         CGFloat(spec.duration()*secWidthInPx),
                         CGFloat(channelHeight-2*channelPadding))
                     sb.frame = frameRect
+                    sb.moveClippingHandle(sb.handleClippingLeft,
+                        deltaX: CGFloat(spec.clipStart * secWidthInPx), relative:false)
+                    sb.moveClippingHandle(sb.handleClippingRight,
+                        deltaX: CGFloat(spec.clipEnd * secWidthInPx) - sb.handleClippingRight.bounds.width, relative:false)
+                    
+                    /*
                     sb.leftConstraintForHandleClippingLeft.constant = CGFloat(spec.clipStart * secWidthInPx)
                     sb.leftConstraintForHandleClippingRight.constant = CGFloat(spec.clipEnd * secWidthInPx) - sb.handleClippingRight.bounds.width
+*/
                 }
             }
         }
@@ -200,7 +207,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         if let handle = sender.view {
             if let sb = handle.superview!.superview as? View_SoundBite {
                 let translation = sender.translationInView(handle.superview)
-                if (sb.moveClippingHandle(handle, deltaX: translation.x)) {
+                if (sb.moveClippingHandle(handle, deltaX: translation.x, relative: true)) {
                     sender.setTranslation(CGPointZero, inView: handle.superview!)
                 }
                 if (sender.state == .Ended) {
@@ -240,7 +247,7 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         if let sbite = sender.view as? View_SoundBite {
             sbiteContextOfPopupMenu = sbite
             KxMenu.showMenuInView(self, fromRect: sbite.frame, menuItems: [
-                KxMenuItem("Rename", image: nil, target: self, action: "pushMenuItem:"),
+                // KxMenuItem("Rename", image: nil, target: self, action: "pushMenuItem:"),
                 KxMenuItem("Duplicate", image: nil, target: self, action: "pushMenuItem:"),
                 KxMenuItem("Delete", image: nil, target: self, action: "pushMenuItem:")])
         }
@@ -303,9 +310,11 @@ class View_Timeline: UIView, UIGestureRecognizerDelegate {
         let patternSize = 28
         let drawSize = CGSize(width: patternSize, height: patternSize)
         
-        UIGraphicsBeginImageContextWithOptions(drawSize, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(drawSize, false, 0.0)
         let patContext = UIGraphicsGetCurrentContext()
-        CGContextSetStrokeColorWithColor(patContext, color)
+
+        let componentsTransluc : [CGFloat] = [1, 1, 1, 0.5]
+        CGContextSetStrokeColorWithColor(patContext, CGColorCreate(colorSpace, componentsTransluc))
         
         CGContextSetLineWidth(patContext, CGFloat(diagBandWidth))
         for _i in -5...5 {

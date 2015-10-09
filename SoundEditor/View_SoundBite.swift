@@ -89,12 +89,14 @@ class View_SoundBite: UIView {
         // this is normalized so the position being reported is the RIGHT edge of the RIGHT clipping handle
         return leftConstraintForHandleClippingRight.constant + handleClippingRight.bounds.width
     }
+
     
-    func moveClippingHandle(whichHandle: UIView, deltaX: CGFloat) -> Bool {
+    
+    func moveClippingHandle(whichHandle: UIView, deltaX: CGFloat, relative: Bool) -> Bool {
         let handleWidth = whichHandle.bounds.width
         var curX = CGFloat(0)
-        var minX = CGFloat(0)
-        var maxX = CGFloat(0)
+        var minX = CGFloat(-99999)
+        var maxX = CGFloat(self.frame.width)
         var newX = CGFloat(0)
         var newBgWidth = CGFloat(0)
         
@@ -104,17 +106,21 @@ class View_SoundBite: UIView {
         if (whichHandle == handleClippingLeft) {
             whichConstraint = leftConstraintForHandleClippingLeft
             whichConstraintForBG = widthConstraintForLeftClippedoutBackground
-            curX = leftConstraintForHandleClippingLeft.constant
-            minX = CGFloat(0)
-            maxX = leftConstraintForHandleClippingRight.constant - handleWidth
+            if (relative) {
+                curX = leftConstraintForHandleClippingLeft.constant
+                minX = CGFloat(0)
+                maxX = leftConstraintForHandleClippingRight.constant - handleWidth
+            }
             newX = min(max(curX+deltaX, minX), maxX)
             newBgWidth = newX
         } else {
             whichConstraint = leftConstraintForHandleClippingRight
             whichConstraintForBG = widthConstraintForRightClippedoutBackground
-            curX = leftConstraintForHandleClippingRight.constant
-            minX = leftConstraintForHandleClippingLeft.constant + handleWidth
-            maxX = self.bounds.width - handleWidth
+            if (relative) {
+                curX = leftConstraintForHandleClippingRight.constant
+                minX = leftConstraintForHandleClippingLeft.constant + handleWidth
+                maxX = self.bounds.width - handleWidth
+            }
             newX = min(max(curX+deltaX, minX), maxX)
             newBgWidth = maxX - newX
         }
