@@ -45,7 +45,7 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
     var channelHeight : Float = 0  //pixels
     
     // Database of soundbites in this timeline
-    var dictSoundbites = [String: View_SoundBite]()
+    var dictSoundbites = [String: SoundBiteView]()
     
     
     
@@ -69,7 +69,7 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
         super.layoutSubviews()
         
         for _sb in dictSoundbites.values {
-            if let sb = _sb as? View_SoundBite {
+            if let sb = _sb as? SoundBiteView {
                 if let spec = sb.timespec {
                     let frameRect = CGRectMake(
                         CGFloat(spec.start * secWidthInPx),
@@ -113,7 +113,7 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
             CGFloat(channelHeight-2*channelPadding))
         
         
-        let soundbite = View_SoundBite(frame: frameRect, _imageForClippedOutPatterning: self.clippedoutPatternImage!)
+        let soundbite = SoundBiteView(frame: frameRect, _imageForClippedOutPatterning: self.clippedoutPatternImage!)
         soundbite.timespec = spec
         soundbite.channelIndex = channelIndex
         soundbite.label_Name.text = name
@@ -181,7 +181,7 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
     var maxAllowedPositiveTranslation : CGFloat?
     
     func handleSoundbiteDrag(sender: UIPanGestureRecognizer) {
-        if let sbite = sender.view as? View_SoundBite {
+        if let sbite = sender.view as? SoundBiteView {
             if curFrameOrigin == nil {
                 // This is the start of a drag operation
                 self.curFrameOrigin = sbite.frame.origin
@@ -205,7 +205,7 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
     
     func handleSoundbiteClipHandleDrag(sender: UIPanGestureRecognizer) {
         if let handle = sender.view {
-            if let sb = handle.superview!.superview as? View_SoundBite {
+            if let sb = handle.superview!.superview as? SoundBiteView {
                 let translation = sender.translationInView(handle.superview)
                 if (sb.moveClippingHandle(handle, deltaX: translation.x, relative: true)) {
                     sender.setTranslation(CGPointZero, inView: handle.superview!)
@@ -219,7 +219,7 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
 
 
     
-    func reportTimespecChange(sb: View_SoundBite) {
+    func reportTimespecChange(sb: SoundBiteView) {
         let newTimespec = Timespec(
             start: Float(sb.frame.origin.x) / secWidthInPx,
             end: Float(sb.frame.origin.x + sb.frame.width) / secWidthInPx,
@@ -241,10 +241,10 @@ class TimelineView: UIView, UIGestureRecognizerDelegate {
     
     
     
-    var sbiteContextOfPopupMenu : View_SoundBite?
+    var sbiteContextOfPopupMenu : SoundBiteView?
     
     func handleSoundbiteLongPress(sender: UILongPressGestureRecognizer) {
-        if let sbite = sender.view as? View_SoundBite {
+        if let sbite = sender.view as? SoundBiteView {
             sbiteContextOfPopupMenu = sbite
             KxMenu.showMenuInView(self, fromRect: sbite.frame, menuItems: [
                 // KxMenuItem("Rename", image: nil, target: self, action: "pushMenuItem:"),

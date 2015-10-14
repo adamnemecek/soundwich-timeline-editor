@@ -1,5 +1,5 @@
 //
-//  View_SoundBite.swift
+//  SoundBiteView.swift
 //  SoundEditor
 //
 //  Created by David Sklar on 9/25/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class View_SoundBite: UIView {
+class SoundBiteView: UIView {
     
     @IBOutlet var contentView: UIView!
     
