@@ -61,7 +61,7 @@ class View_SoundBite: UIView {
     
     
     func initSubviews() {
-        let nib = UINib(nibName: "View_SoundBite", bundle: nil)
+        let nib = UINib(nibName: "SoundBite", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)
