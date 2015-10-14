@@ -25,7 +25,7 @@ enum TimelineError: ErrorType {
 
 
 
-class View_Timeline: UIView, UIGestureRecognizerDelegate {
+class TimelineView: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var scrubberHairline: UIView!

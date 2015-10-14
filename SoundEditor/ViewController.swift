@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, MessagesFromTimelineDelegate {
     
     
-    @IBOutlet weak var timeline: View_Timeline!
+    @IBOutlet weak var timeline: TimelineView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
